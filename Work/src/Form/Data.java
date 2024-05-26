@@ -94,6 +94,11 @@ public class Data extends javax.swing.JFrame {
         });
 
         btnUpdateRecord.setText("Update Record");
+        btnUpdateRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateRecordActionPerformed(evt);
+            }
+        });
 
         btnDelAllRecords.setText("Delete All Records");
         btnDelAllRecords.addActionListener(new java.awt.event.ActionListener() {
@@ -115,26 +120,27 @@ public class Data extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnDeleteRecord)
-                        .addGap(6, 6, 6)
-                        .addComponent(btnInsertRecord)
-                        .addGap(6, 6, 6)
-                        .addComponent(btnUpdateRecord)
-                        .addGap(6, 6, 6)
-                        .addComponent(btnDelAllRecords)
-                        .addGap(12, 12, 12)
-                        .addComponent(btnExitTable, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addComponent(btnDeleteRecord)
+                .addGap(6, 6, 6)
+                .addComponent(btnInsertRecord)
+                .addGap(6, 6, 6)
+                .addComponent(btnUpdateRecord)
+                .addGap(6, 6, 6)
+                .addComponent(btnDelAllRecords)
+                .addGap(12, 12, 12)
+                .addComponent(btnExitTable, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDeleteRecord)
                     .addComponent(btnInsertRecord)
@@ -165,7 +171,17 @@ public class Data extends javax.swing.JFrame {
 
     private void btnDelAllRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelAllRecordsActionPerformed
         // TODO add your handling code here:
-       
+      int num= JOptionPane.showConfirmDialog(this, "Do you really want to delete all Records?");
+        System.out.println("yes" + num);
+        if(num == 0)
+        {
+            DB obj = new DB();
+            obj.deleteAll();
+            JOptionPane.showMessageDialog(this, "Table Records has been deleted!");
+            this.dispose();
+            new Data().setVisible(true);
+        }
+        else return;
     }//GEN-LAST:event_btnDelAllRecordsActionPerformed
 
     private void btnInsertRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertRecordActionPerformed
@@ -195,6 +211,25 @@ public class Data extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnDeleteRecordActionPerformed
+
+    private void btnUpdateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateRecordActionPerformed
+        // TODO add your handling code here:
+        
+        if(tblData.getSelectedRow() == -1)
+        {
+            JOptionPane.showMessageDialog(this, "Select row you want to update!");
+            tblData.grabFocus();
+            return;
+        }
+        int num = tblData.getSelectedRow();
+        Object value = tblData.getValueAt(num , 0);
+       this.dispose();
+                      
+        Main man = new Main(5);
+        man.setVisible(true);
+        man.setValue(value);
+        
+    }//GEN-LAST:event_btnUpdateRecordActionPerformed
 
     /**
      * @param args the command line arguments

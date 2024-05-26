@@ -55,5 +55,27 @@ public class DB {
             System.out.println(e);
         }
     }
+    public void Update(Object v, String n, String e, String c, String g, String city, String course)
+    {
+        String sql = "UPDATE main set FullName = \""+n+"\",Email=\""+e+"\",Contact=\""+c+"\",Gender=\""+g+"\",City=\""+city+"\",Course=\""+course+"\" Where Id ="+v;
+      try{
+        st.executeUpdate(sql);
+      }
+      catch(Exception es)
+        {
+            System.out.println(es);
+        }
+        
+    }
+    public void deleteAll()
+    {
+        String sql = "delete from main";
+        try{
+            st.executeUpdate(sql);
+        }catch(Exception ec)
+        {
+            System.out.println(ec);
+        }
+    }
     
 }

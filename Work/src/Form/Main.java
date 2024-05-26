@@ -16,8 +16,16 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
+   public Object value;
     public Main() {
         initComponents();
+        btnFormUpdate.setEnabled(false);
+        
+    }
+    Main(int x){
+        initComponents();
+        btnFormUpdate.setEnabled(true);
+        btnSubmit.setEnabled(false);
     }
 
     /**
@@ -51,6 +59,7 @@ public class Main extends javax.swing.JFrame {
         btnSubmit = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
         btnShowData = new javax.swing.JButton();
+        btnFormUpdate = new javax.swing.JButton();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -135,7 +144,7 @@ public class Main extends javax.swing.JFrame {
                 btnSubmitActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 60, -1));
+        jPanel1.add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 80, -1));
 
         btnExit.setText("Exit");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +161,14 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btnShowData, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 160, -1));
+
+        btnFormUpdate.setText("Update");
+        btnFormUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFormUpdateActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnFormUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,6 +203,7 @@ public class Main extends javax.swing.JFrame {
             DB obj = new DB();
             obj.addData(txtFullname.getText(),txtEmail.getText(), txtContact.getText(), gender, cmbCity.getSelectedItem().toString(), cmbCourse.getSelectedItem().toString());
             JOptionPane.showMessageDialog(this, "Data has been inserted successfully!");
+            setFields();
             
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -196,6 +214,31 @@ public class Main extends javax.swing.JFrame {
         this.dispose();
         obj.setVisible(true);
     }//GEN-LAST:event_btnShowDataActionPerformed
+
+    private void btnFormUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFormUpdateActionPerformed
+        // TODO add your handling code here:
+        String name="", email="", contact="", gender="", city="", course="";
+       if( checkFields()){
+         name = txtFullname.getText();
+         email = txtEmail.getText();
+         contact = txtContact.getText();
+         
+        if(rdbtnFemale.isSelected())
+        {
+            gender = "Female";
+        } else gender = "Male";
+         city = cmbCity.getSelectedItem().toString();
+         course = cmbCourse.getSelectedItem().toString();
+         DB obj = new DB();
+       obj.Update(value, name, email, contact, gender, city, course);
+       JOptionPane.showMessageDialog(this, "Data has been updated successfully!");
+       }
+     
+         
+       
+       
+      
+    }//GEN-LAST:event_btnFormUpdateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -276,9 +319,23 @@ public class Main extends javax.swing.JFrame {
         
         return true;
     }
+    public void setValue(Object x)
+    {
+        value = x;
+    }
+    public void setFields()
+    {
+        txtFullname.setText("");
+        txtContact.setText("");
+        txtEmail.setText("");
+        buttonGroup1.clearSelection();
+        cmbCity.setSelectedIndex(0);
+        cmbCourse.setSelectedIndex(0);
+                }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnExit;
+    private javax.swing.JButton btnFormUpdate;
     private javax.swing.JButton btnShowData;
     private javax.swing.JButton btnSubmit;
     private javax.swing.ButtonGroup buttonGroup1;
